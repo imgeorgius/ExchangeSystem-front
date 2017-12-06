@@ -13,7 +13,9 @@
 
             </div>
             <div class="col-md-2 text-center">
-              <i class="fa fa-long-arrow-right" style="position: relative; top: 20px;" aria-hidden="true"></i>
+
+              <i id="iconBetweenTransactionCurrencies" class="fa fa-long-arrow-right" aria-hidden="true"></i>
+              
             </div>
             <div class="col-md-5 mb-3">
 
