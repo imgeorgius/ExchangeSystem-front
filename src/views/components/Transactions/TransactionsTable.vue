@@ -57,6 +57,7 @@
     </div>
 
     <b-table striped
+             hover
              show-empty
              stacked="md"
              :items="transactionsTable.items"
@@ -64,7 +65,9 @@
              :current-page="transactionsTable.currentPage"
              :per-page="transactionsTable.perPage"
              :filter="transactionsTable.filter"
-             @filtered="onFiltered">
+             class="transactions-table"
+             @filtered="onFiltered"
+             @row-clicked="transactionRowClickedHandler">
     </b-table>
 
     <b-pagination :total-rows="transactionsTable.totalRows" :per-page="transactionsTable.perPage" v-model="transactionsTable.currentPage" class="my-0" />
@@ -77,26 +80,26 @@
   import Calendar from '../Calendar'
 
   const transactions = [
-    { id: 'id5678', date: '06.12.2017 15:03', sum: 1253, currency: 'BYN' },
-    { id: 'id5678', date: '19.06.2017 15:03', sum: 13, currency: 'BTC' },
-    { id: 'id5678', date: '29.04.2017 15:03', sum: 1853, currency: 'USD' },
-    { id: 'id5678', date: '05.11.2016 15:03', sum: 1253, currency: 'BYN' },
-    { id: 'id5678', date: '06.12.2017 15:03', sum: 953, currency: 'BYN' },
-    { id: 'id5678', date: '19.08.2012 15:03', sum: 453, currency: 'EUR' },
-    { id: 'id5678', date: '07.11.2010 15:03', sum: 553, currency: 'BYN' },
-    { id: 'id5678', date: '06.12.2017 15:03', sum: 1253, currency: 'BYN' },
-    { id: 'id5678', date: '19.06.2017 15:03', sum: 13, currency: 'BTC' },
-    { id: 'id5678', date: '29.04.2017 15:03', sum: 1853, currency: 'USD' },
-    { id: 'id5678', date: '05.11.2016 15:03', sum: 1253, currency: 'BYN' },
-    { id: 'id5678', date: '06.12.2017 15:03', sum: 953, currency: 'BYN' },
-    { id: 'id5678', date: '19.08.2012 15:03', sum: 453, currency: 'EUR' },
-    { id: 'id5678', date: '07.11.2010 15:03', sum: 553, currency: 'BYN' },
-    { id: 'id5678', date: '06.12.2017 15:03', sum: 1253, currency: 'BYN' },
-    { id: 'id5678', date: '19.06.2017 15:03', sum: 13, currency: 'BTC' },
-    { id: 'id5678', date: '29.04.2017 15:03', sum: 1853, currency: 'USD' },
-    { id: 'id5678', date: '05.11.2016 15:03', sum: 1253, currency: 'BYN' },
-    { id: 'id5678', date: '06.12.2017 15:03', sum: 953, currency: 'BYN' },
-    { id: 'id5678', date: '19.08.2012 15:03', sum: 453, currency: 'EUR' }
+    { id: 'id5678', userId: 'id5678', date: '06.12.2017 15:03', sum: 1253, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '19.06.2017 15:03', sum: 13, currency: 'BTC' },
+    { id: 'id5678', userId: 'id5678', date: '29.04.2017 15:03', sum: 1853, currency: 'USD' },
+    { id: 'id5678', userId: 'id5678', date: '05.11.2016 15:03', sum: 1253, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '06.12.2017 15:03', sum: 953, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '19.08.2012 15:03', sum: 453, currency: 'EUR' },
+    { id: 'id5678', userId: 'id5678', date: '07.11.2010 15:03', sum: 553, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '06.12.2017 15:03', sum: 1253, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '19.06.2017 15:03', sum: 13, currency: 'BTC' },
+    { id: 'id5678', userId: 'id5678', date: '29.04.2017 15:03', sum: 1853, currency: 'USD' },
+    { id: 'id5678', userId: 'id5678', date: '05.11.2016 15:03', sum: 1253, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '06.12.2017 15:03', sum: 953, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '19.08.2012 15:03', sum: 453, currency: 'EUR' },
+    { id: 'id5678', userId: 'id5678', date: '07.11.2010 15:03', sum: 553, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '06.12.2017 15:03', sum: 1253, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '19.06.2017 15:03', sum: 13, currency: 'BTC' },
+    { id: 'id5678', userId: 'id5678', date: '29.04.2017 15:03', sum: 1853, currency: 'USD' },
+    { id: 'id5678', userId: 'id5678', date: '05.11.2016 15:03', sum: 1253, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '06.12.2017 15:03', sum: 953, currency: 'BYN' },
+    { id: 'id5678', userId: 'id5678', date: '19.08.2012 15:03', sum: 453, currency: 'EUR' }
   ]
 
   export default {
@@ -137,6 +140,9 @@
       },
       onDayClick2 (dateObject, formatDate) {
         this.transactionsTable.filterToDate = formatDate
+      },
+      transactionRowClickedHandler (item) {
+        this.$router.push('/admin/transactions/' + item.id)
       }
     },
 

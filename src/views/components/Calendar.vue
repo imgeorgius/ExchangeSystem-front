@@ -1,5 +1,6 @@
 <template>
   <div class="datepicker" :style="{width: width}">
+
     <template v-if="hasInput">
       <input type="text"
              :name="name"
@@ -13,6 +14,7 @@
         <span>&times;</span>
       </button>
     </template>
+
     <div class="datepicker-popup" :style="paneStyle" @mouseover="handleMouseOver" @mouseout="handleMouseOver" v-show="displayDayView">
       <div class="datepicker-ctrl">
         <span class="datepicker-preBtn fa fa-angle-left" aria-hidden="true" @click="preNextMonthClick(0)"></span>
@@ -40,6 +42,7 @@
         </div>
       </template>
     </div>
+
     <div class="datepicker-popup" :style="paneStyle" v-show="displayMonthView">
       <div class="datepicker-ctrl">
         <span class="datepicker-preBtn fa fa-angle-left" aria-hidden="true" @click="preNextYearClick(0)"></span>
@@ -62,6 +65,7 @@
         </div>
       </template>
     </div>
+
     <div class="datepicker-popup" :style="paneStyle" v-show="displayYearView">
       <div class="datepicker-ctrl">
         <span class="datepicker-preBtn fa fa-angle-left" aria-hidden="true" @click="preNextDecadeClick(0)"></span>
@@ -83,6 +87,7 @@
         </div>
       </template>
     </div>
+
   </div>
 </template>
 

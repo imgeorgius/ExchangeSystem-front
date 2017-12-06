@@ -24,6 +24,7 @@
     </div>
 
     <b-table striped
+             hover
              show-empty
              stacked="md"
              :items="usersTable.items"
@@ -31,8 +32,10 @@
              :current-page="usersTable.currentPage"
              :per-page="usersTable.perPage"
              :filter="usersTable.filter"
-             @filtered="onFiltered">
-      <template slot="name" scope="data">
+             class="users-table"
+             @filtered="onFiltered"
+             @row-clicked="userRowClickedHandler">
+      <template slot="name" slot-scope="data">
         {{data.value.first}} {{data.value.last}}
       </template>
     </b-table>
@@ -105,6 +108,9 @@
       onFiltered (filteredItems) {
         this.usersTable.totalRows = filteredItems.length
         this.usersTable.currentPage = 1
+      },
+      userRowClickedHandler (item) {
+        this.$router.push('/admin/users/' + item.id)
       }
     }
   }

@@ -8,7 +8,9 @@ import Exchange from '@/views/Exchange'
 import AskQuestion from '@/views/AskQuestion'
 import About from '@/views/About'
 import Transactions from '@/views/Transactions'
+import Transaction from '@/views/Transaction'
 import Users from '@/views/Users'
+import User from '@/views/User'
 
 Vue.use(Router)
 
@@ -48,13 +50,23 @@ export default new Router({
       children: [
         {
           path: 'transactions',
-          name: 'Trasnactions',
+          name: 'Transactions',
           component: Transactions
+        },
+        {
+          path: 'transactions/:id',
+          name: 'Transaction',
+          component: Transaction
         },
         {
           path: 'users',
           name: 'Users',
           component: Users
+        },
+        {
+          path: 'users/:id',
+          name: 'User',
+          component: User
         }
       ]
     }
